@@ -40,6 +40,7 @@ The workflow is very simple (keep in mind, this is a demo with only basic functi
 ## File examples
 This demo takes in one **company_data.csv** file of the form
 |company name       |Example LLC         |
+|-------------------|--------------------|
 |street adress      |Main street, 1      |
 |zip code           |100001              |
 |city               |New York            |
