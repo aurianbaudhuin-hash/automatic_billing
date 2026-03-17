@@ -38,7 +38,7 @@ def collect_invoice_data():
             company_data[key] = value
 
     # Load client invoice entries
-    with open("input/template file.csv", newline="", encoding="utf-8") as f:
+    with open("input/clients_services.csv", newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter=";")
         for row in reader:
             client = row["Client name"].strip()
