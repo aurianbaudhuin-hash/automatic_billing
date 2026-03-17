@@ -15,6 +15,7 @@ Reads billing data from an csv file and creates all corresponding bills. As an o
 - Save PDF files in an output/ folder
 - Send them to the email adresses in the client data file
 ## Project structure
+```
 automatic_bill_creator/
 │
 ├── input/
@@ -25,6 +26,7 @@ automatic_bill_creator/
 │ ├── invoice_template.html # HTML template for the invoices
 ├── main.py # Script principal pour générer les PDF
 └── output/ # Dossier de sortie pour les PDF générés
+```
 
 ## Technologies used
 - **Python 3.8+:** for data processing and automation
