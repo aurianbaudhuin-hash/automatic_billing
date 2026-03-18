@@ -1,8 +1,15 @@
 import csv
+from dotenv import load_dotenv
 import pdfkit
 from jinja2 import Template
 import os
+import smtplib
+from email.message import EmailMessage
 
+
+load_dotenv()
+sender_email = os.getenv("sender_email")
+sender_password = os.getenv("sender_password")
 output_dir = "output"
 os.makedirs(output_dir, exist_ok=True)
 
@@ -72,7 +79,7 @@ def collect_invoice_data():
     return data, company_data
 
 
-def create_invoices(data, company_data):
+def create_invoices(data, company_data, send_invoices=True):
     """Generate PDFs using pdfkit"""
     clients = []
     for client_name, value in data.items():
@@ -111,9 +118,34 @@ def create_invoices(data, company_data):
 
         pdf_file = os.path.join(output_dir, f"invoice_{client['name'].replace(' ', '_')}.pdf")
         pdfkit.from_string(html_filled, pdf_file)
-        print(f"PDF généré pour {client['name']} → {pdf_file}")
+        if send_invoices:
+            send_invoice(client['email'], pdf_file)
+        
+def send_invoice(to_email, pdf_path):
+    msg = EmailMessage()
+    msg["Subject"] = "Your Invoice"
+    msg["From"] = sender_email
+    msg["To"] = to_email
+    msg.set_content("Hello,\n\nPlease find your invoice attached.\n\nBest regards")
+
+    with open(pdf_path, "rb") as f:
+        file_data = f.read()
+        file_name = f.name
+
+    msg.add_attachment(
+        file_data,
+        maintype="application",
+        subtype="pdf",
+        filename=file_name
+    )
+
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+        smtp.login(sender_email, sender_password)
+        smtp.send_message(msg)
+
 
 
 if __name__ == "__main__":
     data_dict, company_info = collect_invoice_data()
-    create_invoices(data_dict, company_info)
+    create_invoices(data_dict, company_info, send_invoices=True)
+    

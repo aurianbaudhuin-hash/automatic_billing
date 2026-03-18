@@ -1,2 +1,3 @@
 resources/invoice_model.jpg
 output/
+.env
