@@ -21,17 +21,18 @@ automatic_bill_creator/
 ├── input/
 │ ├── company_data.csv # Basic company data such as name, adress, email,... for the invoice heading (see below for example file)
 │ └── clients_services.csv # Client and service data (see below for example file)
-├── output/ # Destination folder for the invoices
 ├── resources/
 │ └── invoice_template.html # HTML template for the invoices
+├── output/ # Output folder for the invoices
 ├── main.py # Main script
-└── output/ # Output folder for the invoices
+└── .env # File with logins and sensitive information
 ```
 
 ## Technologies used
 - **Python 3.8+:** for data processing and automation
 - **jinja2:** to render HTML templates dynamically
 - **pdfkit & wkhtmltopdf:** to convert HTML templates to PDF files
+- **smtplib & email:** to create and send emails
 
 ## How it works
 The workflow is very simple (keep in mind, this is a demo with only basic functions):
@@ -149,4 +150,5 @@ This being a very simple demo, a lot of features can be added to better tailor i
 - Adding an user-friendly interface
 - Adding data processing features: finding invalid entries, flagging duplicates,...
 - Reports creation: every time it runs, on top of sending the invoices, it also generates a report on the billings, with custom metrics, presentation-ready
+- Use of email templates to send out better-looking, personalized emails
 - ...
